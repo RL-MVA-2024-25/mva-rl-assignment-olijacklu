@@ -1,5 +1,5 @@
 from gymnasium.wrappers import TimeLimit
-from fast_env_py import FastHIVPatient
+from env_hiv import HIVPatient
 import numpy as np
 import xgboost as xgb
 import random
@@ -9,7 +9,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 
 env = TimeLimit(
-    env=FastHIVPatient(domain_randomization=True), max_episode_steps=200
+    env=HIVPatient(domain_randomization=True), max_episode_steps=200
 )
 
 class ReplayBuffer:
@@ -277,7 +277,7 @@ class ProjectAgent:
         joblib.dump(save_dict, path)
     
     def load(self):
-        path = "best_model.pt"
+        path = os.getcwd() + "/best_model.pt"
         save_dict = joblib.load(path)
         self.models = save_dict['models']
         self.scalers = save_dict['scalers']
